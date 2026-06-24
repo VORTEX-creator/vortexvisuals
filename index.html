@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vortex Visuals — Graphics & Web Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue: #0ea5e9;
+    --blue-dark: #0369a1;
+    --blue-bright: #38bdf8;
+    --gold: #d4b659;
+    --gold-soft: rgba(212,182,89,0.16);
+    --black: #000000;
+    --dark2: #050c15;
+    --dark3: #0a1628;
+    --white: #f0f6ff;
+    --muted: #7ea8c9;
+    --border: rgba(212,182,89,0.16);
+    --border-hover: rgba(212,182,89,0.42);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Exo 2', sans-serif;
+    background: radial-gradient(circle at top left, rgba(14,165,233,0.12), transparent 20%),
+                radial-gradient(circle at bottom right, rgba(212,182,89,0.1), transparent 24%),
+                var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 200;
+    padding: 0 5%;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(2,4,9,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    will-change: background;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav-logo img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  .nav-logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    white-space: nowrap;
+  }
+
+  .nav-logo-text span { color: var(--blue); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--blue);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: linear-gradient(135deg, var(--gold), var(--blue-bright));
+    border: 1px solid rgba(212,182,89,0.55);
+    padding: 8px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.35s;
+    box-shadow: 0 16px 35px rgba(212,182,89,0.15);
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 24px 50px rgba(212,182,89,0.2); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    background: none;
+    border: none;
+    z-index: 300;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(2,4,9,0.98);
+    z-index: 190;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .mobile-menu a:hover, .mobile-menu a:active { color: var(--blue-bright); }
+
+  .mobile-wa {
+    color: #22c55e !important;
+    border: 1px solid #22c55e;
+    padding: 12px 32px;
+    border-radius: 2px;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 110px 5% 60px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .orb1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%);
+    top: -80px; right: -80px;
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+
+  .orb2 {
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(3,105,161,0.12) 0%, transparent 70%);
+    bottom: 0; left: 0;
+    animation: orbFloat 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(212,182,89,0.1);
+    border: 1.5px solid rgba(212,182,89,0.45);
+    border-radius: 100px;
+    padding: 8px 22px 8px 10px;
+    margin-bottom: 32px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .badge-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 8px rgba(34,197,94,0.7);
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  }
+
+  .hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .hero-title .line1 { color: var(--white); display: block; }
+  .hero-title .line2 {
+    display: block;
+    background: linear-gradient(135deg, var(--gold) 0%, #7dd3fc 45%, var(--blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200%;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.85;
+    margin-bottom: 40px;
+  }
+
+  .hero-sub strong { color: #7dd3fc; font-weight: 500; }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .hero-right {
+    position: absolute;
+    right: 5%; top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero-stat {
+    text-align: right;
+    border-right: 2px solid var(--blue);
+    padding: 20px 20px 20px 0;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat .num { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue-bright); display: block; }
+  .hero-stat .label { font-family: 'Rajdhani', sans-serif; font-size: 0.74rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.93rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--black);
+    background: linear-gradient(135deg, var(--gold), var(--blue-bright));
+    border: none; padding: 13px 34px;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    display: inline-block;
+    box-shadow: 0 20px 40px rgba(212,182,89,0.18);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 22px 48px rgba(212,182,89,0.24); }
+
+  .btn-secondary {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.93rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid rgba(212,182,89,0.5);
+    padding: 13px 34px;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.3s;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    display: inline-block;
+  }
+
+  .btn-secondary:hover { background: rgba(212,182,89,0.08); border-color: var(--gold); color: var(--white); transform: translateY(-2px); }
+
+  /* ── SECTION ── */
+  section { position: relative; z-index: 1; padding: 54px 5%; }
+
+  .section-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .section-tag::before { content: ''; width: 28px; height: 1px; background: var(--blue); }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.1; margin-bottom: 18px; color: var(--white);
+  }
+
+  .section-title span {
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .section-desc { font-size: 1.05rem; color: var(--muted); max-width: 600px; line-height: 1.8; }
+
+  /* ── BRAND STRIP ── */
+  .brand-strip {
+    background: var(--dark2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0; overflow: hidden;
+    position: relative; z-index: 1;
+  }
+
+  .brand-strip-track {
+    display: flex; gap: 60px;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap; width: max-content;
+    will-change: transform;
+  }
+
+  .brand-strip-item {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.76rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 20px;
+  }
+
+  .brand-strip-item::after { content: '◆'; color: var(--blue); font-size: 0.44rem; }
+
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ── ABOUT ── */
+  #about { background: linear-gradient(180deg, var(--black) 0%, var(--dark2) 50%, var(--black) 100%); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px; align-items: center; margin-top: 40px;
+  }
+
+  .about-card {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 36px;
+    position: relative; overflow: hidden;
+  }
+
+  .about-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    animation: scanLine 3s linear infinite;
+  }
+
+  @keyframes scanLine {
+    0% { opacity: 0; transform: translateX(-100%); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(100%); }
+  }
+
+  .about-services { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+
+  .service-item {
+    background: rgba(14,165,233,0.05);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 18px; transition: all 0.3s;
+  }
+
+  .service-item:hover { border-color: var(--blue); background: rgba(14,165,233,0.1); transform: translateY(-4px); }
+  .service-icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+
+  .service-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.95rem;
+    letter-spacing: 0.04em; color: var(--blue-bright); margin-bottom: 4px;
+  }
+
+  .service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .about-text .lead { font-size: 1.1rem; line-height: 1.9; color: var(--muted); margin-bottom: 20px; }
+  .skills-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+
+  .skill-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600; font-size: 0.82rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue-bright);
+    border: 1px solid var(--border);
+    background: rgba(14,165,233,0.05);
+    padding: 8px 16px; border-radius: 2px; transition: all 0.3s;
+  }
+
+  .skill-tag:hover { border-color: var(--blue); background: rgba(14,165,233,0.12); }
+
+  .corner-deco { position: absolute; width: 36px; height: 36px; pointer-events: none; }
+  .corner-deco.tl { top: 14px; left: 14px; border-top: 1px solid var(--blue); border-left: 1px solid var(--blue); }
+  .corner-deco.br { bottom: 14px; right: 14px; border-bottom: 1px solid var(--blue); border-right: 1px solid var(--blue); }
+
+  /* ── PORTFOLIO ── */
+  #portfolio { background: var(--black); }
+
+  .portfolio-header {
+    display: flex; align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px; flex-wrap: wrap; gap: 20px;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ── PORTFOLIO ITEM — uniform boxes, full image visible, elegant background fill ── */
+  .portfolio-item {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    /* Subtle radial gradient background - blends with design, no harsh empty space */
+    background: radial-gradient(circle at center, #0a1628 0%, #050c15 100%);
+    transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: zoom-in;
+    aspect-ratio: 4/3;  /* All boxes same size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .portfolio-item:hover {
+    border-color: var(--blue);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 56px rgba(14,165,233,0.2);
+  }
+
+  /* Image shows FULLY inside the box - object-fit: contain = zero cropping */
+  .portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* Full image visible, no crop */
+    object-position: center;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .portfolio-item:hover img { transform: scale(1.04); }
+
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(2,4,9,0.92) 100%);
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 20px;
+    opacity: 0; transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+  .portfolio-zoom-icon {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 34px; height: 34px;
+    background: rgba(14,165,233,0.15);
+    border: 1px solid rgba(14,165,233,0.4);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    font-size: 1rem;
+    backdrop-filter: blur(6px);
+  }
+
+  .portfolio-item:hover .portfolio-zoom-icon { opacity: 1; }
+
+  .portfolio-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700; font-size: 0.7rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 4px;
+  }
+
+  .portfolio-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600; font-size: 0.92rem; color: var(--white);
+  }
+
+  /* ══════════════════════════
+     LIGHTBOX
+  ══════════════════════════ */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-frame {
+    position: relative;
+    max-width: 92vw;
+    max-height: 88vh;
+    border: 1px solid rgba(14,165,233,0.35);
+    border-radius: 4px;
+    overflow: hidden;
+    transform: scale(0.88);
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 0 80px rgba(14,165,233,0.15), 0 40px 80px rgba(0,0,0,0.7);
+  }
+
+  .lightbox.active .lightbox-frame { transform: scale(1); }
+
+  .lightbox-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue), #818cf8, transparent);
+    z-index: 2;
+  }
+
+  /* In the lightbox, use contain so the full image is always visible */
+  .lightbox-img {
+    display: block;
+    max-width: 92vw;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .lb-corner { position: absolute; width: 20px; height: 20px; pointer-events: none; z-index: 3; }
+  .lb-corner.tl { top: 8px; left: 8px; border-top: 1px solid var(--blue); border-left: 1px solid var(--blue); }
+  .lb-corner.tr { top: 8px; right: 8px; border-top: 1px solid var(--blue); border-right: 1px solid var(--blue); }
+  .lb-corner.bl { bottom: 8px; left: 8px; border-bottom: 1px solid var(--blue); border-left: 1px solid var(--blue); }
+  .lb-corner.br { bottom: 8px; right: 8px; border-bottom: 1px solid var(--blue); border-right: 1px solid var(--blue); }
+
+  .lightbox-close {
+    position: fixed;
+    top: 20px; right: 24px;
+    z-index: 10001;
+    width: 44px; height: 44px;
+    border-radius: 4px;
+    background: rgba(2,4,9,0.8);
+    border: 1px solid var(--border-hover);
+    color: var(--white);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s;
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox-close:hover { background: var(--blue); color: var(--black); border-color: var(--blue); }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 14px 20px;
+    background: linear-gradient(0deg, rgba(2,4,9,0.9) 0%, transparent 100%);
+    z-index: 3;
+  }
+
+  .lightbox-caption .lc-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 3px;
+  }
+
+  .lightbox-caption .lc-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--white);
+  }
+
+  .lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10001;
+    width: 46px; height: 46px;
+    background: rgba(2,4,9,0.75);
+    border: 1px solid var(--border-hover);
+    border-radius: 4px;
+    color: var(--white);
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s;
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox-nav:hover { background: var(--blue); color: var(--black); border-color: var(--blue); }
+  .lightbox-prev { left: 16px; }
+  .lightbox-next { right: 16px; }
+
+  /* ── PROCESS ── */
+  #process { background: linear-gradient(180deg, var(--black) 0%, var(--dark2) 100%); }
+
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 40px; position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 27px; left: 12.5%; right: 12.5%; height: 1px;
+    background: linear-gradient(90deg, var(--blue), rgba(14,165,233,0.15));
+  }
+
+  .process-step { text-align: center; padding: 0 16px; }
+
+  .step-num {
+    width: 54px; height: 54px; border-radius: 50%;
+    background: var(--dark3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 22px;
+    font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.88rem;
+    color: var(--blue-bright); position: relative; z-index: 1; transition: all 0.3s;
+  }
+
+  .process-step:hover .step-num {
+    background: var(--blue); color: var(--black);
+    border-color: var(--blue); box-shadow: 0 0 28px rgba(14,165,233,0.4);
+  }
+
+  .step-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 8px; }
+  .step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--black); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 48px; margin-top: 40px;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 28px; }
+  .contact-block { display: flex; align-items: flex-start; gap: 18px; }
+
+  .contact-icon-wrap {
+    width: 46px; height: 46px;
+    border: 1px solid var(--border);
+    background: rgba(14,165,233,0.06);
+    border-radius: 4px; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+    font-size: 1.2rem; transition: all 0.3s;
+  }
+
+  .contact-block:hover .contact-icon-wrap { border-color: var(--blue); background: rgba(14,165,233,0.12); }
+
+  .contact-block-label {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.7rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px;
+  }
+
+  .contact-block-value { font-size: 1rem; color: var(--white); text-decoration: none; transition: color 0.3s; }
+  .contact-block-value:hover { color: var(--blue-bright); }
+
+  .contact-form {
+    background: var(--dark2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 40px; position: relative;
+  }
+
+  .contact-form::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--blue), #818cf8);
+  }
+
+  .form-group { margin-bottom: 22px; }
+
+  .form-label {
+    display: block;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 9px;
+  }
+
+  .form-input, .form-textarea {
+    width: 100%; background: rgba(0,0,0,0.45);
+    border: 1px solid var(--border); border-radius: 2px;
+    padding: 13px 16px; color: var(--white);
+    font-family: 'Exo 2', sans-serif; font-size: 0.95rem;
+    outline: none; transition: border-color 0.3s;
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(126,168,201,0.4); }
+  .form-input:focus, .form-textarea:focus { border-color: var(--blue); }
+  .form-textarea { resize: vertical; min-height: 110px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative; z-index: 1;
+    background: var(--dark2); border-top: 1px solid var(--border);
+    padding: 40px 5%;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 20px;
+  }
+
+  .footer-brand { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); }
+  .footer-brand span { color: var(--blue); }
+  .footer-copy { font-size: 0.85rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 20px; list-style: none; }
+
+  .footer-links a {
+    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--blue-bright); }
+
+  /* ── WHATSAPP FLOAT ── */
+  .whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 999;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: #25d366; display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 8px 28px rgba(37,211,102,0.45);
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s;
+  }
+
+  .whatsapp-float:hover { transform: scale(1.1) translateY(-4px); box-shadow: 0 16px 48px rgba(37,211,102,0.55); }
+  .whatsapp-float svg { width: 30px; height: 30px; fill: white; position: relative; z-index: 1; }
+
+  .whatsapp-pulse {
+    position: absolute; width: 100%; height: 100%; border-radius: 50%;
+    background: rgba(37,211,102,0.4);
+    animation: waPulse 2s ease-out infinite;
+  }
+
+  @keyframes waPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.9); opacity: 0; } }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  /* ══════════════════
+     RESPONSIVE
+  ══════════════════ */
+  @media (max-width: 1024px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-right { display: none; }
+  }
+
+  @media (max-width: 860px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+
+    #hero { padding: 100px 5% 48px; align-items: flex-start; }
+    .hero-title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
+    .hero-sub { font-size: 1rem; max-width: 100%; margin-bottom: 32px; }
+    .hero-actions { gap: 12px; }
+    .btn-primary, .btn-secondary { padding: 11px 24px; font-size: 0.85rem; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 36px; }
+    .about-services { grid-template-columns: 1fr 1fr; }
+
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .portfolio-header { flex-direction: column; align-items: flex-start; margin-bottom: 32px; }
+
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 36px; }
+    .process-steps::before { display: none; }
+    .step-desc { font-size: 0.88rem; }
+
+    .contact-grid { grid-template-columns: 1fr; gap: 36px; margin-top: 36px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .contact-form { padding: 28px 20px; }
+
+    footer { flex-direction: column; align-items: flex-start; gap: 14px; }
+    section { padding: 48px 5%; }
+
+    .lightbox-prev { left: 6px; }
+    .lightbox-next { right: 6px; }
+    .lightbox-nav { width: 38px; height: 38px; font-size: 1rem; }
+  }
+
+  @media (max-width: 520px) {
+    nav { padding: 0 4%; }
+    section { padding: 42px 4%; }
+
+    .hero-title { font-size: clamp(2rem, 13vw, 3rem); }
+    .hero-badge { font-size: 0.76rem; padding: 7px 14px 7px 8px; letter-spacing: 0.08em; }
+
+    .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
+    .about-services { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+
+    .section-title { font-size: clamp(1.5rem, 7vw, 2rem); }
+    .section-desc { font-size: 1rem; }
+
+    .whatsapp-float { width: 50px; height: 50px; bottom: 18px; right: 18px; }
+    .whatsapp-float svg { width: 26px; height: 26px; }
+
+    .hero-actions { flex-direction: column; gap: 10px; }
+    .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    .about-card { padding: 22px 16px; }
+    footer { padding: 28px 4%; }
+    .footer-links { flex-wrap: wrap; gap: 12px; }
+
+    .step-title { font-size: 0.95rem; }
+    .step-desc { font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <img src="logo.jpg" alt="Vortex Visuals Logo" onerror="this.style.display='none'" width="36" height="36"/>
+    <span class="nav-logo-text">VORTEX <span>VISUALS</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="#process" onclick="closeMenu()">Process</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="https://wa.me/2349028499626" target="_blank" rel="noopener noreferrer" class="mobile-wa">WhatsApp Me</a>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lbClose" title="Close (Esc)" aria-label="Close lightbox">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" title="Previous image" aria-label="Previous image">&#8249;</button>
+  <button class="lightbox-nav lightbox-next" id="lbNext" title="Next image" aria-label="Next image">&#8250;</button>
+  <div class="lightbox-frame">
+    <div class="lb-corner tl"></div>
+    <div class="lb-corner tr"></div>
+    <div class="lb-corner bl"></div>
+    <div class="lb-corner br"></div>
+    <img class="lightbox-img" id="lbImg" src="" alt="" decoding="async"/>
+    <div class="lightbox-caption">
+      <p class="lc-label" id="lbLabel"></p>
+      <p class="lc-name" id="lbName"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg-orb orb1" aria-hidden="true"></div>
+  <div class="hero-bg-orb orb2" aria-hidden="true"></div>
+
+  <div style="max-width:680px;position:relative;z-index:2;width:100%;">
+    <div class="hero-badge">
+      <span class="badge-dot" aria-hidden="true"></span>
+      AVAILABLE FOR PROJECTS
+    </div>
+    <h1 class="hero-title">
+      <span class="line1">VORTEX</span>
+      <span class="line2">VISUALS</span>
+    </h1>
+    <p class="hero-sub">
+      Luxury <strong>graphics</strong>, refined <strong>branding systems</strong>, and conversion-first
+      digital experiences crafted for ambitious businesses.
+    </p>
+    <div class="hero-actions">
+      <a href="#portfolio" class="btn-primary">View Portfolio</a>
+      <a href="#contact" class="btn-secondary">Book a Call</a>
+    </div>
+  </div>
+
+  <div class="hero-right" aria-hidden="true">
+    <div class="hero-stat">
+      <span class="num">100%</span>
+      <span class="label">Client Satisfaction</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">50+</span>
+      <span class="label">Projects Done</span>
+    </div>
+    <div class="hero-stat">
+      <span class="num">2+</span>
+      <span class="label">Years Experience</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── BRAND STRIP ── -->
+<div class="brand-strip" aria-hidden="true">
+  <div class="brand-strip-track">
+    <span class="brand-strip-item">Luxury Brands</span>
+    <span class="brand-strip-item">Premium Websites</span>
+    <span class="brand-strip-item">Signature Identity</span>
+    <span class="brand-strip-item">Editorial Design</span>
+    <span class="brand-strip-item">Digital Experiences</span>
+    <span class="brand-strip-item">Campaign Assets</span>
+    <span class="brand-strip-item">Motion Storytelling</span>
+    <span class="brand-strip-item">Packaging Design</span>
+    <span class="brand-strip-item">Luxury Brands</span>
+    <span class="brand-strip-item">Premium Websites</span>
+    <span class="brand-strip-item">Signature Identity</span>
+    <span class="brand-strip-item">Editorial Design</span>
+    <span class="brand-strip-item">Digital Experiences</span>
+    <span class="brand-strip-item">Campaign Assets</span>
+    <span class="brand-strip-item">Motion Storytelling</span>
+    <span class="brand-strip-item">Packaging Design</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="fade-up">
+    <p class="section-tag">Who I Am</p>
+    <h2 class="section-title">Design That <span>Speaks</span><br/>Louder Than Words</h2>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-visual fade-up">
+      <div class="about-card">
+        <div class="corner-deco tl" aria-hidden="true"></div>
+        <div class="corner-deco br" aria-hidden="true"></div>
+        <p class="section-tag" style="margin-bottom:8px;">Services</p>
+        <p style="color:var(--white);font-weight:500;font-size:1.08rem;margin-bottom:5px;">What I Create</p>
+        <p style="color:var(--muted);font-size:0.92rem;margin-bottom:0;">From concept to final pixel — I deliver.</p>
+        <div class="about-services">
+          <div class="service-item">
+            <span class="service-icon" aria-hidden="true">🎨</span>
+            <p class="service-name">Graphics Design</p>
+            <p class="service-desc">Flyers, banners, posters, social media visuals &amp; more.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon" aria-hidden="true">🌐</span>
+            <p class="service-name">Web Design</p>
+            <p class="service-desc">Beautiful, responsive websites built to convert.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon" aria-hidden="true">🏷️</span>
+            <p class="service-name">Brand Identity</p>
+            <p class="service-desc">Logos, colour systems &amp; full brand kits.</p>
+          </div>
+          <div class="service-item">
+            <span class="service-icon" aria-hidden="true">📱</span>
+            <p class="service-name">Social Media</p>
+            <p class="service-desc">Scroll-stopping content for every platform.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-text fade-up">
+      <p class="section-tag">About Me</p>
+      <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2.2rem);">Vortex <span>Visuals</span></h2>
+      <p class="lead">
+        I work with ambitious founders and growing brands to create premium visual
+        identities and refined web experiences that feel confident, polished, and
+        truly distinctive. Every project is shaped by strategy, craftsmanship, and
+        a deep focus on measurable impact.
+      </p>
+      <p style="color:var(--muted);font-size:0.98rem;line-height:1.8;margin-bottom:24px;">
+        Whether you need a striking flyer, a full brand overhaul, or a website that
+        turns visitors into customers — Vortex Visuals has you covered. Let's build
+        something extraordinary together.
+      </p>
+      <div class="skills-list">
+        <span class="skill-tag">Adobe Photoshop</span>
+        <span class="skill-tag">CorelDRAW</span>
+        <span class="skill-tag">HTML &amp; CSS</span>
+        <span class="skill-tag">Microsoft Office</span>
+        <span class="skill-tag">Canva</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio">
+  <div class="portfolio-header fade-up">
+    <div>
+      <p class="section-tag">My Work</p>
+      <h2 class="section-title">Creative <span>Portfolio</span></h2>
+      <p class="section-desc">Selected works across graphics design, branding, and web.</p>
+    </div>
+    <a href="#contact" class="btn-secondary">Request a Design &rarr;</a>
+  </div>
+
+  <div class="portfolio-grid">
+    <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Flyer Design">
+      <img src="flyer.jpeg" alt="Flyer Design" loading="lazy" decoding="async"/>
+      <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
+      <div class="portfolio-overlay" aria-hidden="true">
+        <p class="portfolio-label">Graphic Design</p>
+        <p class="portfolio-name">Flyer Design</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 02">
+      <img src="sample2.jpeg" alt="Design Sample 2" loading="lazy" decoding="async"/>
+      <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
+      <div class="portfolio-overlay" aria-hidden="true">
+        <p class="portfolio-label">Graphic Design</p>
+        <p class="portfolio-name">Sample 02</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 03">
+      <img src="sample3.jpeg" alt="Design Sample 3" loading="lazy" decoding="async"/>
+      <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
+      <div class="portfolio-overlay" aria-hidden="true">
+        <p class="portfolio-label">Graphic Design</p>
+        <p class="portfolio-name">Sample 03</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 04">
+      <img src="sample4.jpeg" alt="Design Sample 4" loading="lazy" decoding="async"/>
+      <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
+      <div class="portfolio-overlay" aria-hidden="true">
+        <p class="portfolio-label">Graphic Design</p>
+        <p class="portfolio-name">Sample 04</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 05">
+      <img src="sample5.jpeg" alt="Design Sample 5" loading="lazy" decoding="async"/>
+      <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
+      <div class="portfolio-overlay" aria-hidden="true">
+        <p class="portfolio-label">Graphic Design</p>
+        <p class="portfolio-name">Sample 05</p>
+      </div>
+    </div>
+
+    <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 06">
+      <img src="sample6.jpeg" alt="Design Sample 6" loading="lazy" decoding="async"/>
+      <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
+      <div class="portfolio-overlay" aria-hidden="true">
+        <p class="portfolio-label">Graphic Design</p>
+        <p class="portfolio-name">Sample 06</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section id="process">
+  <div style="text-align:center;" class="fade-up">
+    <p class="section-tag" style="justify-content:center;">How It Works</p>
+    <h2 class="section-title">My Creative <span>Process</span></h2>
+    <p class="section-desc" style="margin:0 auto;text-align:center;">A streamlined approach built for speed, quality, and your complete satisfaction.</p>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step fade-up">
+      <div class="step-num">01</div>
+      <p class="step-title">Brief &amp; Discovery</p>
+      <p class="step-desc">We discuss your vision, goals, and brand to lay a solid creative foundation.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">02</div>
+      <p class="step-title">Concept &amp; Strategy</p>
+      <p class="step-desc">I develop creative concepts tailored to your audience and objectives.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">03</div>
+      <p class="step-title">Design &amp; Refine</p>
+      <p class="step-desc">Pixel-perfect execution with revisions until you love every detail.</p>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">04</div>
+      <p class="step-title">Deliver &amp; Launch</p>
+      <p class="step-desc">Final files delivered in all formats, ready to make an impact.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="fade-up">
+    <p class="section-tag">Get In Touch</p>
+    <h2 class="section-title">Let's Build Something <span>Great</span></h2>
+    <p class="section-desc">Ready to elevate your brand? Reach out — I respond within 24 hours.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info fade-up">
+      <div class="contact-block">
+        <div class="contact-icon-wrap" aria-hidden="true">📧</div>
+        <div>
+          <p class="contact-block-label">Email</p>
+          <a href="mailto:vortexvisuals10@gmail.com" class="contact-block-value">vortexvisuals10@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-block">
+        <div class="contact-icon-wrap" aria-hidden="true">📞</div>
+        <div>
+          <p class="contact-block-label">Phone / WhatsApp</p>
+          <a href="tel:+2349028499626" class="contact-block-value">+234 902 849 9626</a>
+        </div>
+      </div>
+      <div class="contact-block">
+        <div class="contact-icon-wrap" aria-hidden="true">💬</div>
+        <div>
+          <p class="contact-block-label">WhatsApp</p>
+          <a href="https://wa.me/2349028499626" target="_blank" rel="noopener noreferrer" class="contact-block-value">Chat on WhatsApp &rarr;</a>
+        </div>
+      </div>
+      <div class="contact-block">
+        <div class="contact-icon-wrap" aria-hidden="true">⏱️</div>
+        <div>
+          <p class="contact-block-label">Response Time</p>
+          <span class="contact-block-value" style="cursor:default;">Within 24 hours</span>
+        </div>
+      </div>
+      <div style="background:var(--dark3);border:1px solid var(--border);border-radius:4px;padding:24px;position:relative;overflow:hidden;">
+        <div class="corner-deco tl" aria-hidden="true"></div>
+        <p class="section-tag" style="margin-bottom:10px;">Quick Quote via WhatsApp</p>
+        <p style="font-size:0.92rem;color:var(--muted);line-height:1.7;margin-bottom:18px;">
+          For fastest response, send your project details directly on WhatsApp and get a quote within minutes.
+        </p>
+        <a href="https://wa.me/2349028499626?text=Hi%20Vortex%20Visuals!%20I'd%20like%20to%20discuss%20a%20design%20project." target="_blank" rel="noopener noreferrer" class="btn-primary">
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form fade-up">
+      <p style="font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:600;color:var(--white);margin-bottom:28px;">Send a Message</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f-name">Your Name</label>
+          <input type="text" class="form-input" id="f-name" name="name" placeholder="John Doe" autocomplete="name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-email">Email Address</label>
+          <input type="email" class="form-input" id="f-email" name="email" placeholder="john@email.com" autocomplete="email"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="f-service">Service Needed</label>
+        <select class="form-input" id="f-service" name="service" style="appearance:none;cursor:pointer;">
+          <option value="" style="background:#050c15;">Select a service...</option>
+          <option value="Flyer / Poster Design" style="background:#050c15;">Flyer / Poster Design</option>
+          <option value="Logo & Brand Identity" style="background:#050c15;">Logo &amp; Brand Identity</option>
+          <option value="Web Design" style="background:#050c15;">Web Design</option>
+          <option value="Social Media Graphics" style="background:#050c15;">Social Media Graphics</option>
+          <option value="Other" style="background:#050c15;">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="f-msg">Project Details</label>
+        <textarea class="form-textarea" id="f-msg" name="message" placeholder="Tell me about your project, budget, and timeline..."></textarea>
+      </div>
+      <button type="button" onclick="handleFormSubmit()" class="btn-primary" style="width:100%;text-align:center;">
+        Send Message &rarr;
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div>
+    <p class="footer-brand">VORTEX <span>VISUALS</span></p>
+    <p class="footer-copy" style="margin-top:5px;">&copy; 2026 Vortex Visuals. All rights reserved.</p>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">Designed &amp; built by Vortex Visuals</p>
+</footer>
+
+<!-- ── WHATSAPP FLOAT ── -->
+<a href="https://wa.me/2349028499626?text=Hi%20Vortex%20Visuals!%20I'd%20like%20to%20discuss%20a%20project."
+   target="_blank" rel="noopener noreferrer"
+   class="whatsapp-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
+  <span class="whatsapp-pulse" aria-hidden="true"></span>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<script>
+  /* ── Scroll animations ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── Portfolio stagger ── */
+  document.querySelectorAll('.portfolio-grid .portfolio-item').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+  });
+
+  /* ── Nav scroll (throttled) ── */
+  const nav = document.getElementById('mainNav');
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        nav.style.background = window.scrollY > 60 ? 'rgba(2,4,9,0.97)' : 'rgba(2,4,9,0.85)';
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true });
+
+  /* ── Hamburger ── */
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  /* Close mobile menu on outside click */
+  mobileMenu.addEventListener('click', e => {
+    if (e.target === mobileMenu) closeMenu();
+  });
+
+  /* ── Form → WhatsApp ── */
+  function handleFormSubmit() {
+    const name  = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const svc   = document.getElementById('f-service').value;
+    const msg   = document.getElementById('f-msg').value.trim();
+    if (!name || !email || !msg) {
+      alert('Please fill in your name, email, and project details.');
+      return;
+    }
+    const text = `Hello Vortex Visuals!\n\nName: ${name}\nEmail: ${email}\nService: ${svc || 'Not specified'}\n\nMessage: ${msg}`;
+    window.open('https://wa.me/2349028499626?text=' + encodeURIComponent(text), '_blank', 'noopener,noreferrer');
+  }
+
+  /* ══════════════════════════════════
+     LIGHTBOX
+  ══════════════════════════════════ */
+  const lightbox       = document.getElementById('lightbox');
+  const lbImg          = document.getElementById('lbImg');
+  const lbLabel        = document.getElementById('lbLabel');
+  const lbName         = document.getElementById('lbName');
+  const lbClose        = document.getElementById('lbClose');
+  const lbPrev         = document.getElementById('lbPrev');
+  const lbNext         = document.getElementById('lbNext');
+  const portfolioItems = Array.from(document.querySelectorAll('.portfolio-item'));
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const item  = portfolioItems[index];
+    const img   = item.querySelector('img');
+    lbImg.src   = img.src;
+    lbImg.alt   = img.alt;
+    lbLabel.textContent = item.dataset.label || '';
+    lbName.textContent  = item.dataset.name  || '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+    updateNavButtons();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => { lbImg.src = ''; }, 350);
+  }
+
+  function showPrev() {
+    if (currentIndex > 0) openLightbox(currentIndex - 1);
+  }
+
+  function showNext() {
+    if (currentIndex < portfolioItems.length - 1) openLightbox(currentIndex + 1);
+  }
+
+  function updateNavButtons() {
+    const atStart = currentIndex === 0;
+    const atEnd   = currentIndex === portfolioItems.length - 1;
+    lbPrev.style.opacity       = atStart ? '0.3' : '1';
+    lbNext.style.opacity       = atEnd   ? '0.3' : '1';
+    lbPrev.style.pointerEvents = atStart ? 'none' : 'all';
+    lbNext.style.pointerEvents = atEnd   ? 'none' : 'all';
+  }
+
+  portfolioItems.forEach((item, i) => {
+    item.addEventListener('click', () => openLightbox(i));
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click',  showPrev);
+  lbNext.addEventListener('click',  showNext);
+
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape')     { e.preventDefault(); closeLightbox(); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); showPrev(); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); showNext(); }
+  });
+
+  /* Touch swipe */
+  let touchStartX = 0;
+  lightbox.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) { dx < 0 ? showNext() : showPrev(); }
+  }, { passive: true });
+
+  /* ── Cursor glow (desktop only, passive) ── */
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const glow = document.createElement('div');
+    glow.style.cssText = 'position:fixed;pointer-events:none;z-index:1;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,0.06) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity 0.3s;';
+    document.body.appendChild(glow);
+    let glowTick = false;
+    document.addEventListener('mousemove', e => {
+      if (!glowTick) {
+        requestAnimationFrame(() => {
+          glow.style.left = e.clientX + 'px';
+          glow.style.top  = e.clientY + 'px';
+          glowTick = false;
+        });
+        glowTick = true;
+      }
+    }, { passive: true });
+  }
+</script>
+</body>
+</html>
