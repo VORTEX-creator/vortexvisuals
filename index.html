@@ -3,28 +3,46 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#000000"/>
 <title>Vortex Visuals — Graphics & Web Design</title>
 <meta name="description" content="Vortex Visuals delivers bold graphic design and modern web experiences for brands, creators, and businesses." />
+
+<!-- ═══════════════════════════════════════════════════
+     ✅ FIXED OG / SOCIAL PREVIEW — ABSOLUTE URLs
+     Replace YOUR_USERNAME and YOUR_REPO below with
+     your real GitHub Pages values, e.g.:
+       vortexsmithz  →  YOUR_USERNAME
+       portfolio     →  YOUR_REPO
+     Result: https://vortexsmithz.github.io/portfolio/
+════════════════════════════════════════════════════ -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Vortex Visuals — Graphics & Web Design" />
 <meta property="og:description" content="Vortex Visuals delivers bold graphic design and modern web experiences for brands, creators, and businesses." />
-<meta property="og:image" content="preview.jpeg" />
-<meta property="og:image:secure_url" content="preview.jpeg" />
+<meta property="og:image" content="https://YOUR_USERNAME.github.io/YOUR_REPO/preview.jpeg" />
+<meta property="og:image:secure_url" content="https://YOUR_USERNAME.github.io/YOUR_REPO/preview.jpeg" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Vortex Visuals preview" />
-<meta property="og:url" content="." />
+<meta property="og:image:alt" content="Vortex Visuals — Graphics & Web Design" />
+<meta property="og:url" content="https://YOUR_USERNAME.github.io/YOUR_REPO/" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Vortex Visuals — Graphics & Web Design" />
 <meta name="twitter:description" content="Vortex Visuals delivers bold graphic design and modern web experiences for brands, creators, and businesses." />
-<meta name="twitter:image" content="preview.jpeg" />
+<meta name="twitter:image" content="https://YOUR_USERNAME.github.io/YOUR_REPO/preview.jpeg" />
 <meta name="twitter:image:alt" content="Vortex Visuals preview" />
-<link rel="image_src" href="preview.jpeg" />
+<link rel="image_src" href="https://YOUR_USERNAME.github.io/YOUR_REPO/preview.jpeg" />
+
+<!-- ✅ PERFORMANCE: Preconnect before font fetch -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- ✅ PERFORMANCE: Non-blocking font load (no render-blocking) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap"/>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap"/>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap"/></noscript>
+
 <style>
+  /* ✅ PERFORMANCE: Font fallback stack so text shows instantly before Google Fonts loads */
   :root {
     --blue: #0ea5e9;
     --blue-dark: #0369a1;
@@ -44,7 +62,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Exo 2', system-ui, sans-serif;
     background: radial-gradient(circle at top left, rgba(14,165,233,0.12), transparent 20%),
                 radial-gradient(circle at bottom right, rgba(212,182,89,0.1), transparent 24%),
                 var(--black);
@@ -98,7 +116,7 @@
   }
 
   .nav-logo-text {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', system-ui, sans-serif;
     font-weight: 700;
     font-size: 1rem;
     letter-spacing: 0.05em;
@@ -115,7 +133,7 @@
   }
 
   .nav-links a {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.1em;
@@ -141,7 +159,7 @@
   .nav-links a:hover::after { width: 100%; }
 
   .nav-cta {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 700;
     font-size: 0.85rem;
     letter-spacing: 0.1em;
@@ -203,7 +221,7 @@
   .mobile-menu.open { display: flex; }
 
   .mobile-menu a {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', system-ui, sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -269,7 +287,7 @@
     border-radius: 100px;
     padding: 8px 22px 8px 10px;
     margin-bottom: 32px;
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-size: 0.88rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -293,7 +311,7 @@
   }
 
   .hero-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', system-ui, sans-serif;
     font-weight: 900;
     font-size: clamp(2.8rem, 8vw, 6rem);
     line-height: 1.0;
@@ -349,12 +367,12 @@
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
   }
   .hero-stat:last-child { border-right: none; }
-  .hero-stat .num { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue-bright); display: block; }
-  .hero-stat .label { font-family: 'Rajdhani', sans-serif; font-size: 0.74rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .hero-stat .num { font-family: 'Orbitron', system-ui, sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue-bright); display: block; }
+  .hero-stat .label { font-family: 'Rajdhani', system-ui, sans-serif; font-size: 0.74rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
 
   /* ── BUTTONS ── */
   .btn-primary {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 700; font-size: 0.93rem;
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--black);
@@ -370,7 +388,7 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 22px 48px rgba(212,182,89,0.24); }
 
   .btn-secondary {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 700; font-size: 0.93rem;
     letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--gold);
@@ -389,7 +407,7 @@
   section { position: relative; z-index: 1; padding: 54px 5%; }
 
   .section-tag {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 700; font-size: 0.78rem;
     letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--blue); margin-bottom: 14px;
@@ -399,7 +417,7 @@
   .section-tag::before { content: ''; width: 28px; height: 1px; background: var(--blue); }
 
   .section-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', system-ui, sans-serif;
     font-weight: 700;
     font-size: clamp(1.8rem, 4vw, 3rem);
     line-height: 1.1; margin-bottom: 18px; color: var(--white);
@@ -429,7 +447,7 @@
   }
 
   .brand-strip-item {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 700; font-size: 0.76rem;
     letter-spacing: 0.25em; text-transform: uppercase;
     color: var(--muted);
@@ -481,7 +499,7 @@
   .service-icon { font-size: 1.6rem; margin-bottom: 8px; display: block; }
 
   .service-name {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 700; font-size: 0.95rem;
     letter-spacing: 0.04em; color: var(--blue-bright); margin-bottom: 4px;
   }
@@ -491,7 +509,7 @@
   .skills-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 
   .skill-tag {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 600; font-size: 0.82rem;
     letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--blue-bright);
@@ -521,17 +539,15 @@
     gap: 20px;
   }
 
-  /* ── PORTFOLIO ITEM — uniform boxes, full image visible, elegant background fill ── */
   .portfolio-item {
     position: relative;
     border: 1px solid var(--border);
     border-radius: 4px;
     overflow: hidden;
-    /* Subtle radial gradient background - blends with design, no harsh empty space */
     background: radial-gradient(circle at center, #0a1628 0%, #050c15 100%);
     transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
     cursor: zoom-in;
-    aspect-ratio: 4/3;  /* All boxes same size */
+    aspect-ratio: 4/3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -543,11 +559,10 @@
     box-shadow: 0 20px 56px rgba(14,165,233,0.2);
   }
 
-  /* Image shows FULLY inside the box - object-fit: contain = zero cropping */
   .portfolio-item img {
     width: 100%;
     height: 100%;
-    object-fit: contain;  /* Full image visible, no crop */
+    object-fit: contain;
     object-position: center;
     display: block;
     transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -584,20 +599,18 @@
   .portfolio-item:hover .portfolio-zoom-icon { opacity: 1; }
 
   .portfolio-label {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-weight: 700; font-size: 0.7rem;
     letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--blue); margin-bottom: 4px;
   }
 
   .portfolio-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', system-ui, sans-serif;
     font-weight: 600; font-size: 0.92rem; color: var(--white);
   }
 
-  /* ══════════════════════════
-     LIGHTBOX
-  ══════════════════════════ */
+  /* ── LIGHTBOX ── */
   .lightbox {
     position: fixed;
     inset: 0;
@@ -641,7 +654,6 @@
     z-index: 2;
   }
 
-  /* In the lightbox, use contain so the full image is always visible */
   .lightbox-img {
     display: block;
     max-width: 92vw;
@@ -684,14 +696,14 @@
   }
 
   .lightbox-caption .lc-label {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rajdhani', system-ui, sans-serif;
     font-size: 0.68rem; font-weight: 700;
     letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--blue); margin-bottom: 3px;
   }
 
   .lightbox-caption .lc-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', system-ui, sans-serif;
     font-size: 0.9rem; font-weight: 600;
     color: var(--white);
   }
@@ -738,7 +750,7 @@
     background: var(--dark3); border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 22px;
-    font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.88rem;
+    font-family: 'Orbitron', system-ui, sans-serif; font-weight: 700; font-size: 0.88rem;
     color: var(--blue-bright); position: relative; z-index: 1; transition: all 0.3s;
   }
 
@@ -747,7 +759,7 @@
     border-color: var(--blue); box-shadow: 0 0 28px rgba(14,165,233,0.4);
   }
 
-  .step-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 8px; }
+  .step-title { font-family: 'Rajdhani', system-ui, sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 8px; }
   .step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 
   /* ── CONTACT ── */
@@ -773,7 +785,7 @@
   .contact-block:hover .contact-icon-wrap { border-color: var(--blue); background: rgba(14,165,233,0.12); }
 
   .contact-block-label {
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.7rem;
+    font-family: 'Rajdhani', system-ui, sans-serif; font-weight: 700; font-size: 0.7rem;
     letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 5px;
   }
 
@@ -795,7 +807,7 @@
 
   .form-label {
     display: block;
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.78rem;
+    font-family: 'Rajdhani', system-ui, sans-serif; font-weight: 700; font-size: 0.78rem;
     letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 9px;
   }
 
@@ -803,7 +815,7 @@
     width: 100%; background: rgba(0,0,0,0.45);
     border: 1px solid var(--border); border-radius: 2px;
     padding: 13px 16px; color: var(--white);
-    font-family: 'Exo 2', sans-serif; font-size: 0.95rem;
+    font-family: 'Exo 2', system-ui, sans-serif; font-size: 0.95rem;
     outline: none; transition: border-color 0.3s;
   }
 
@@ -821,13 +833,13 @@
     justify-content: space-between; flex-wrap: wrap; gap: 20px;
   }
 
-  .footer-brand { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); }
+  .footer-brand { font-family: 'Orbitron', system-ui, sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); }
   .footer-brand span { color: var(--blue); }
   .footer-copy { font-size: 0.85rem; color: var(--muted); }
   .footer-links { display: flex; gap: 20px; list-style: none; }
 
   .footer-links a {
-    font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.85rem;
+    font-family: 'Rajdhani', system-ui, sans-serif; font-weight: 600; font-size: 0.85rem;
     letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
     text-decoration: none; transition: color 0.3s;
   }
@@ -862,14 +874,11 @@
   }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-  /* Reduce motion for users who prefer it */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
 
-  /* ══════════════════
-     RESPONSIVE
-  ══════════════════ */
+  /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-right { display: none; }
@@ -943,6 +952,7 @@
 <!-- ── NAVBAR ── -->
 <nav id="mainNav">
   <a href="#" class="nav-logo">
+    <!-- ✅ PERFORMANCE: explicit width/height prevents layout shift -->
     <img src="logo.jpg" alt="Vortex Visuals Logo" onerror="this.style.display='none'" width="36" height="36"/>
     <span class="nav-logo-text">VORTEX <span>VISUALS</span></span>
   </a>
@@ -1125,7 +1135,7 @@
 
   <div class="portfolio-grid">
     <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Flyer Design">
-      <img src="flyer.jpeg" alt="Flyer Design" loading="lazy" decoding="async"/>
+      <img src="flyer.jpeg" alt="Flyer Design" loading="lazy" decoding="async" width="400" height="300"/>
       <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
       <div class="portfolio-overlay" aria-hidden="true">
         <p class="portfolio-label">Graphic Design</p>
@@ -1134,7 +1144,7 @@
     </div>
 
     <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 02">
-      <img src="sample2.jpeg" alt="Design Sample 2" loading="lazy" decoding="async"/>
+      <img src="sample2.jpeg" alt="Design Sample 2" loading="lazy" decoding="async" width="400" height="300"/>
       <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
       <div class="portfolio-overlay" aria-hidden="true">
         <p class="portfolio-label">Graphic Design</p>
@@ -1143,7 +1153,7 @@
     </div>
 
     <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 03">
-      <img src="sample3.jpeg" alt="Design Sample 3" loading="lazy" decoding="async"/>
+      <img src="sample3.jpeg" alt="Design Sample 3" loading="lazy" decoding="async" width="400" height="300"/>
       <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
       <div class="portfolio-overlay" aria-hidden="true">
         <p class="portfolio-label">Graphic Design</p>
@@ -1152,7 +1162,7 @@
     </div>
 
     <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 04">
-      <img src="sample4.jpeg" alt="Design Sample 4" loading="lazy" decoding="async"/>
+      <img src="sample4.jpeg" alt="Design Sample 4" loading="lazy" decoding="async" width="400" height="300"/>
       <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
       <div class="portfolio-overlay" aria-hidden="true">
         <p class="portfolio-label">Graphic Design</p>
@@ -1161,7 +1171,7 @@
     </div>
 
     <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 05">
-      <img src="sample5.jpeg" alt="Design Sample 5" loading="lazy" decoding="async"/>
+      <img src="sample5.jpeg" alt="Design Sample 5" loading="lazy" decoding="async" width="400" height="300"/>
       <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
       <div class="portfolio-overlay" aria-hidden="true">
         <p class="portfolio-label">Graphic Design</p>
@@ -1170,7 +1180,7 @@
     </div>
 
     <div class="portfolio-item fade-up" data-label="Graphic Design" data-name="Sample 06">
-      <img src="sample6.jpeg" alt="Design Sample 6" loading="lazy" decoding="async"/>
+      <img src="sample6.jpeg" alt="Design Sample 6" loading="lazy" decoding="async" width="400" height="300"/>
       <div class="portfolio-zoom-icon" aria-hidden="true">🔍</div>
       <div class="portfolio-overlay" aria-hidden="true">
         <p class="portfolio-label">Graphic Design</p>
@@ -1368,7 +1378,6 @@
     document.body.style.overflow = '';
   }
 
-  /* Close mobile menu on outside click */
   mobileMenu.addEventListener('click', e => {
     if (e.target === mobileMenu) closeMenu();
   });
@@ -1387,9 +1396,7 @@
     window.open('https://wa.me/2349028499626?text=' + encodeURIComponent(text), '_blank', 'noopener,noreferrer');
   }
 
-  /* ══════════════════════════════════
-     LIGHTBOX
-  ══════════════════════════════════ */
+  /* ── LIGHTBOX ── */
   const lightbox       = document.getElementById('lightbox');
   const lbImg          = document.getElementById('lbImg');
   const lbLabel        = document.getElementById('lbLabel');
@@ -1420,13 +1427,8 @@
     setTimeout(() => { lbImg.src = ''; }, 350);
   }
 
-  function showPrev() {
-    if (currentIndex > 0) openLightbox(currentIndex - 1);
-  }
-
-  function showNext() {
-    if (currentIndex < portfolioItems.length - 1) openLightbox(currentIndex + 1);
-  }
+  function showPrev() { if (currentIndex > 0) openLightbox(currentIndex - 1); }
+  function showNext() { if (currentIndex < portfolioItems.length - 1) openLightbox(currentIndex + 1); }
 
   function updateNavButtons() {
     const atStart = currentIndex === 0;
@@ -1458,15 +1460,13 @@
 
   /* Touch swipe */
   let touchStartX = 0;
-  lightbox.addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  lightbox.addEventListener('touchend', e => {
+  lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend',   e => {
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 50) { dx < 0 ? showNext() : showPrev(); }
   }, { passive: true });
 
-  /* ── Cursor glow (desktop only, passive) ── */
+  /* ── Cursor glow (desktop only) ── */
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const glow = document.createElement('div');
     glow.style.cssText = 'position:fixed;pointer-events:none;z-index:1;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,0.06) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity 0.3s;';
@@ -1474,11 +1474,7 @@
     let glowTick = false;
     document.addEventListener('mousemove', e => {
       if (!glowTick) {
-        requestAnimationFrame(() => {
-          glow.style.left = e.clientX + 'px';
-          glow.style.top  = e.clientY + 'px';
-          glowTick = false;
-        });
+        requestAnimationFrame(() => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; glowTick = false; });
         glowTick = true;
       }
     }, { passive: true });
