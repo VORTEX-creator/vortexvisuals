@@ -49,9 +49,9 @@
     --blue-bright: #38bdf8;
     --gold: #d4b659;
     --gold-soft: rgba(212,182,89,0.16);
-    --black: #02070d;
-    --dark2: #050d18;
-    --dark3: #0b1624;
+    --black: #071321;
+    --dark2: #0a1929;
+    --dark3: #102238;
     --panel: rgba(10, 18, 30, 0.82);
     --panel-strong: rgba(9, 16, 27, 0.94);
     --white: #edf6ff;
@@ -67,9 +67,7 @@
 
   body {
     font-family: 'Exo 2', system-ui, sans-serif;
-    background: radial-gradient(circle at top left, rgba(14,165,233,0.18), transparent 22%),
-                radial-gradient(circle at bottom right, rgba(212,182,89,0.12), transparent 26%),
-                var(--black);
+    background: var(--black);
     color: var(--white);
     overflow-x: hidden;
   }
@@ -79,8 +77,8 @@
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(14,165,233,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(14,165,233,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(138,168,196,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(138,168,196,0.018) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     z-index: 0;
@@ -90,7 +88,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at center, transparent 55%, rgba(2,7,13,0.36) 100%);
+    background: none;
     pointer-events: none;
     z-index: 0;
   }
@@ -282,16 +280,16 @@
 
   .orb1 {
     width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%);
+    background: none;
     top: -80px; right: -80px;
-    animation: orbFloat 8s ease-in-out infinite;
+    animation: none;
   }
 
   .orb2 {
     width: 350px; height: 350px;
-    background: radial-gradient(circle, rgba(3,105,161,0.12) 0%, transparent 70%);
+    background: none;
     bottom: 0; left: 0;
-    animation: orbFloat 10s ease-in-out infinite reverse;
+    animation: none;
   }
 
   @keyframes orbFloat {
@@ -497,7 +495,7 @@
   @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
   /* ── ABOUT ── */
-  #about { background: linear-gradient(180deg, var(--black) 0%, var(--dark2) 50%, var(--black) 100%); }
+  #about { background: var(--black); }
 
   .about-grid {
     display: grid;
@@ -769,7 +767,7 @@
   .lightbox-next { right: 16px; }
 
   /* ── PROCESS ── */
-  #process { background: linear-gradient(180deg, var(--black) 0%, var(--dark2) 100%); }
+  #process { background: var(--black); }
 
   .process-steps {
     display: grid; grid-template-columns: repeat(4, 1fr);
@@ -1037,7 +1035,7 @@
 </div>
 
 <!-- ── HERO ── -->
-<section id="hero" style="background:linear-gradient(90deg, rgba(2,7,13,0.98) 0%, rgba(4,12,20,0.9) 35%, rgba(7,15,23,0.8) 100%); border-bottom:1px solid rgba(138,168,196,0.14); border-radius:0 0 28px 28px; box-shadow:inset 0 -1px 0 rgba(255,255,255,0.03);">
+<section id="hero" style="background:#071321; border-bottom:1px solid rgba(138,168,196,0.14); border-radius:0 0 28px 28px; box-shadow:inset 0 -1px 0 rgba(255,255,255,0.03);">
   <div class="hero-bg-orb orb1" aria-hidden="true"></div>
   <div class="hero-bg-orb orb2" aria-hidden="true"></div>
 
@@ -1506,19 +1504,6 @@
     if (Math.abs(dx) > 50) { dx < 0 ? showNext() : showPrev(); }
   }, { passive: true });
 
-  /* ── Cursor glow (desktop only) ── */
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const glow = document.createElement('div');
-    glow.style.cssText = 'position:fixed;pointer-events:none;z-index:1;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,0.06) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity 0.3s;';
-    document.body.appendChild(glow);
-    let glowTick = false;
-    document.addEventListener('mousemove', e => {
-      if (!glowTick) {
-        requestAnimationFrame(() => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; glowTick = false; });
-        glowTick = true;
-      }
-    }, { passive: true });
-  }
 </script>
 </body>
 </html>
